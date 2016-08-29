@@ -29,15 +29,17 @@ window.onload = function() {
 	var maxg = 0;
 	setInterval(function() {
 		maxg = 0;
-	}, 500);
+	}, 1000);
 	window.addEventListener("devicemotion", function(e) {
 		var xg = e.accelerationIncludingGravity.x; // 傾き
 		var yg = e.accelerationIncludingGravity.y;
 		var zg = e.accelerationIncludingGravity.z;
 		var g = Math.sqrt(xg * xg + yg * yg + zg * zg);
+		if (g > 15)
+			dice();
 		if (g > maxg)
 			maxg = g;
-		get("g").textContent = g + "G " + maxg + "G";
+		get("g").textContent = fixfloat(g, 2) + "G " + fixfloat(maxg, 2) + "G";
 	}, true);
 };
 
