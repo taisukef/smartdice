@@ -12,7 +12,7 @@ window.onload = function() {
 		if (tdice != null) {
 			clearInterval(tdice);
 		}
-		cntdice += 20;
+		cntdice = 20;
 		tdice = setInterval(function() {
 			get("dice").textContent = rnd(6) + 1;
 			cntdice--;
