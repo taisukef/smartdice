@@ -39,7 +39,7 @@ window.onload = function() {
 		var g = Math.sqrt(xg * xg + yg * yg + zg * zg) / G;
 		if (g > maxg)
 			maxg = g;
-		if (g > 2) // 2Gを超えたら振る
+		if (g > 1.5) // 1.5Gを超えたら振る
 			dice();
 		get("g").textContent = fixfloat(g, 2) + "G (" + fixfloat(maxg, 2) + "G)";
 	}, true);
