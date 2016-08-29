@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/>
+<title>dice0</title>
+<meta property="og:image" content="http://fukuno.jig.jp/app/game/dice0/dice0.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+<script src="fukuno.js"></script>
+<script>"use strict";
+
+window.onload = function() {
+	var tdice = null;
+	var cntdice = 0;
+	var dice = function() {
+		if (tdice != null) {
+			clearInterval(tdice);
+		}
+		cntdice += 20;
+		tdice = setInterval(function() {
+			get("dice").textContent = rnd(6) + 1;
+			cntdice--;
+			if (cntdice == 0) {
+				clearInterval(tdice);
+				tdice = null;
+			}
+		}, 1000 / 20);
+	};
+	
+	get("dice").onclick = dice;
+	
+	// 加速度でもさいころ振る
+	var maxg = 0;
+	setInterval(function() {
+		maxg = 0;
+	}, 500);
+	window.addEventListener("devicemotion", function(e) {
+		var xg = e.accelerationIncludingGravity.x; // 傾き
+		var yg = e.accelerationIncludingGravity.y;
+		var zg = e.accelerationIncludingGravity.z;
+		var g = Math.sqrt(xg * xg + yg * yg + zg * zg);
+		if (g > maxg)
+			maxg = g;
+		get("g").textContent = g + "G " + maxg + "G";
+	}, true);
+};
+
+</script>
+<style>
+body {
+	margin: 0px;
+}
+#main {
+	text-align: center;
+}
+#dice {
+	font-size: 80px;
+	margin: 30px;
+	display: block;
+}
+a {
+	color: gray !important;
+}
+#credit {
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+<div id="main">
+<span id="dice">6</span>
+<span id="g"></span>
+</div>
+
+<div id="credit">
+<a href="http://fukuno.jig.jp/1498">CC BY fukuno.jig.jp 一日一創</a>
+</div>
+
+</body>
+</html>
