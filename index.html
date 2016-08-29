@@ -1,6 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"/>
-<title>dice0</title>
-<meta property="og:image" content="http://fukuno.jig.jp/app/game/dice0/dice0.png">
+<title>smartdice</title>
+<link rel="apple-touch-icon" href="http://fukuno.jig.jp/app/game/smartdice/icon.png"/>
+<meta property="og:image" content="http://fukuno.jig.jp/app/game/smartdice/smartdice.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
 <script src="fukuno.js"></script>
 <script>"use strict";
@@ -40,7 +41,9 @@ window.onload = function() {
 			maxg = g;
 		if (g > 2) // 2Gを超えたら振る
 			dice();
-		get("g").textContent = g + "G (" + maxg + "G)";
+	var g = 1.03;
+	var maxg = 1.1;
+		get("g").textContent = fixfloat(g, 2) + "G (" + fixfloat(maxg, 2) + "G)";
 	}, true);
 };
 
