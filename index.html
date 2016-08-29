@@ -31,15 +31,16 @@ window.onload = function() {
 		maxg = 0;
 	}, 1000);
 	window.addEventListener("devicemotion", function(e) {
+		var G = 9.80665;
 		var xg = e.accelerationIncludingGravity.x; // 傾き
 		var yg = e.accelerationIncludingGravity.y;
 		var zg = e.accelerationIncludingGravity.z;
-		var g = Math.sqrt(xg * xg + yg * yg + zg * zg);
-		if (g > 15)
-			dice();
+		var g = Math.sqrt(xg * xg + yg * yg + zg * zg) / G;
 		if (g > maxg)
 			maxg = g;
-		get("g").textContent = fixfloat(g, 2) + "G " + fixfloat(maxg, 2) + "G";
+		if (g > 2) // 2Gを超えたら振る
+			dice();
+		get("g").textContent = g + "G (" + maxg + "G)";
 	}, true);
 };
 
@@ -47,7 +48,7 @@ window.onload = function() {
 <style>
 body {
 	margin: 0px;
-	font-family: "Hiragino Kaku Gothic Pro W3","ヒラギノ角ゴ Pro W3","Osaka","ＭＳ ゴシック",sans-serif;
+	font-family: sans-serif;
 	-webkit-text-size-adjust: none;
 }
 #main {
@@ -62,6 +63,7 @@ a {
 	color: gray !important;
 }
 #credit {
+	margin: 10px;
 	text-align: center;
 }
 </style>
